@@ -1,0 +1,7 @@
+{
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "editor.fontSize": 20,
+    "editor.tabSize": 4,
+    "editor.codeLensFontSize": 0,
+    "window.zoomLevel": 1
+}

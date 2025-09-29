@@ -8,7 +8,7 @@ import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MetaData } from "../../../../actions/create-checkout-session";
+import { createCheckoutSession, MetaData } from "../../../../actions/create-checkout-session";
 
 const CartPage = () => {
     const groupedItems = useBasketStore(state => state.getGroupedItems());

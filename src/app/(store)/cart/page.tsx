@@ -142,7 +142,7 @@ const CartPage = () => {
                             <button
                                 onClick={handleCheckout}
                                 disabled={isLoading}
-                                className="mt-4 w-full bg-blue text-white px-4 py-2 rounded hover:bg-blue disabled:bg-gray-400"
+                                className="mt-4 w-full bg-primary text-white px-4 py-2 rounded hover:bg-primary disabled:bg-gray-400"
                             >
                                 {isLoading ? "Processing" : "Checkout"}
                             </button>

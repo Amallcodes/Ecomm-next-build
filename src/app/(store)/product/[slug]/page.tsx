@@ -4,6 +4,7 @@ import Image from "next/image";
 import ImageUrl from "@/lib/image-url";
 import { PortableText } from "next-sanity";
 import AddToCartButton from "@/components/add-to-cart";
+
 const ProductPage = async ({ params }:
     {
         params: Promise<{
@@ -51,20 +52,30 @@ const ProductPage = async ({ params }:
                     </div>
                 )} */}
 
-                <div className="">
-                    <h1>{product.name}</h1>
-                    <p>${product.price?.toFixed(2)}</p>
+                <div className="p-4 flex flex-col gap-3">
+                    <div className="flex flex-col gap-3">
+                        <h1 className="text-[1.5rem] text-primary font-semibold dm-sans">
+                            {product.name}
+                        </h1>
 
-                    {/* <div className="prose">  */}
-                    <div> 
-                        {Array.isArray(product.description) && (
-                            <PortableText value={product.description} />
-                        )}
+                        <p
+                            className="font-semibold text-gray-800 text-lg"
+                        >${product.price?.toFixed(2)}</p>
+
+                        {/* <div className="prose">  */}
+                        <div>
+                            {Array.isArray(product.description) && (
+                                <PortableText value={product.description} />
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="m-auto">
+                        <AddToCartButton product={product} disabled={isOutOfStock} />
                     </div>
                 </div>
             </div>
 
-            <AddToCartButton product={product} disabled={isOutOfStock} />
         </div>
     );
 }

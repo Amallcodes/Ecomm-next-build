@@ -25,7 +25,7 @@ const CategorySelector = ({ categories }: {
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className="lg:w-full w-[50%] mt-4 max-w-full relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 bg-blue text-white hover:text-white py-2 px-4 rounded"
+                        className="lg:w-full w-[50%] mt-4 max-w-full relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 bg-primary text-white hover:text-white py-2 px-4 rounded"
                     >
                         {value
                             ? categories.find((category) => category._id === value)?.title

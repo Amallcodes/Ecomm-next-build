@@ -37,7 +37,7 @@ async function SearchPage({ searchParams }
   return (
     <div>
       <section className="shadow-md rounded-lg py-4">
-        <h1 className="text-blue text-[1.1rem]">Search results for {query}</h1>
+        <h1 className="text-primary text-[1.1rem]">Search results for `{query}`</h1>
       </section>
 
       <section className="">

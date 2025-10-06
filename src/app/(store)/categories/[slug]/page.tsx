@@ -1,4 +1,5 @@
 import ProductView from "@/components/product-view";
+import SalesBanner from "@/components/sales-banner";
 import { getAllCategories } from "@/sanity/lib/products/get-all-categories";
 import { getProductsByCategory } from "@/sanity/lib/products/get-product-by-category";
 
@@ -13,6 +14,8 @@ const CategoryPage = async ({params}:
 
     return ( 
         <section className="">
+            <SalesBanner />
+
             <ProductView products={products} categories={categories}/>
         </section>
      );

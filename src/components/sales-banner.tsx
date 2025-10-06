@@ -10,7 +10,7 @@ const SalesBanner = async () => {
     }
 
     return (
-        <div className="bg-gradient-to-r from-[#030338] to-gray-600 py-8 px-6 rounded-lg text-white mt-4">
+        <div className="bg-gradient-to-r from-[#008080b2] to-gray-200 py-8 px-6 rounded-lg text-white mt-4">
             <div className="">
                 <h2 className="font-semibold text-[1.1rem]lg: text-[1.3rem]">Black Friday Sales!!!</h2>
                 <p className="text-[.9rem] lg:text-[1rem]">get 10% off any product</p>

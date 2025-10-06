@@ -6,7 +6,6 @@ export const backendClient = createClient({
     projectId,
     dataset,
     apiVersion,
-    // Must be false for write operations (mutations) to reach the Content Lake
-    useCdn: false,
+    useCdn: true, // set to false if statically geneerating pages using ISR or tag based revalidation
     token: process.env.SANITY_API_TOKEN
 })

@@ -84,7 +84,7 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
         quantity: item.quantity || 0
     }))
 
-    return await backendClient.create({
+    const order  = await backendClient.create({
         _type: "order",
         orderNumber,
         // align to schema field names

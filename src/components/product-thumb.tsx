@@ -9,9 +9,9 @@ const ProductThumb = ({ product }: { product: Product }) => {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col bg-white rounded-lg border-gray-200 shadow-sm hover:shadow-md transiton-all duration-200 overflow-hidden 
+      className={`group relative pb-14 flex flex-col bg-[#eeeeee17] rounded-lg border-gray-200 shadow-md hover:shadow-lg transiton-all duration-200 overflow-hidden
         w-full
-        ${isOutOfStock ? "opacity-50" : "opacity-100"}`}
+        ${isOutOfStock ? "opacity-50" : "opacity-100"}`} // remove bottom padding if no button
     >
       <div className="relative aspect-square rounded-sm w-full h-[200px] md:h-[225px] lg:h-[250px] overflow-hidden">
         {product.image && (
@@ -31,12 +31,12 @@ const ProductThumb = ({ product }: { product: Product }) => {
         )}
       </div>
 
-      <div className="">
+      <div className="p-2">
         <h2 className="text-gray-700 text-lg font-semibold truncate">
           {product.name}
         </h2>
 
-        <p>
+        <p className="text-sm mb-2">
           {product.description?.map((block) =>
             block._type === "block"
               ?
@@ -44,8 +44,17 @@ const ProductThumb = ({ product }: { product: Product }) => {
               : ""
           ).join(" ") || "no description available"}
         </p>
-      </div>
 
+        <div className="absolute left-2 bottom-1 w-[90%] pb-1">
+          <p className="font-semibold text-md  text-primary mb-1">
+            ₦{product.price}
+          </p>
+
+          <button className="text-white m-auto bg-primary w-full py-1 rounded-lg">View</button>
+        </div>
+
+
+      </div>
 
     </Link>
   );

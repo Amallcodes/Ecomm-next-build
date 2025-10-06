@@ -5,7 +5,7 @@ import ProductThumb from "./product-thumb";
 
 const ProductGrid = ({ products } : {products: Product[]}) => {
   return (
-    <div className="grid lg:grid-cols-5 grid-cols-2 gap-4 mt-5 lg:gap-6">
+    <div className="grid lg:grid-cols-5 grid-cols-2 gap-6 mt-5 lg:gap-6">
       {products?.map((product) => (
         <AnimatePresence key={product._id}>
           <motion.div

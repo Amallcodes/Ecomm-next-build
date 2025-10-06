@@ -49,7 +49,7 @@ export async function createCheckoutSession(
             mode: "payment",
             allow_promotion_codes: true,
             success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`,
-            cancel_url: `${baseUrl}/basket`,
+            cancel_url: `${baseUrl}/cart`,
             line_items: items.map((item) => ({ // we are returning an array of cart items
                 price_data: {
                     currency: "ngn",

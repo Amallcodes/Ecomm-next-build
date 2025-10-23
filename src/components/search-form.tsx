@@ -7,7 +7,7 @@ const SearchForm = () => {
             <div
                 className="flex gap-2 relative items-center justify-between bg-white px-[8px] py-[.4rem] md:px-4  rounded-lg text-gray-700 border-[1px] border-gray-300 
                 
-                
+                md:w-auto
                 lg:w-[90%] lg:m-auto"
             >
                 <input className="bg-transparent text-[.9rem] lg:text-[1rem] w-[200px] md:w-[300px]

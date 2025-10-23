@@ -280,6 +280,92 @@ export type SanityImageMetadata = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sales | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/sanity/lib/orders/get-by-orders.ts
+// Variable: MY_ORDERS_QUERY
+// Query: *[_type == "order" && clerkUserId == $userId] | order(orderDate desc) {            ..., // spread operator i'e include all fields from the document            products[]{                ...,                product->{                ...  // This means "include ALL fields from the product document"                }            }        }
+export type MY_ORDERS_QUERYResult = Array<{
+  _id: string;
+  _type: "order";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  orderNumber?: string;
+  stripeCheckoutId?: string;
+  stripeCustomerId?: string;
+  clerkUserId?: string;
+  customerName?: string;
+  email?: string;
+  stripePaymentIntentId?: string;
+  products: Array<{
+    product: {
+      _id: string;
+      _type: "product";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      } | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }>;
+      price?: number;
+      categories?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "category";
+      }>;
+      stock?: number;
+    } | null;
+    quantity?: number;
+    _key: string;
+  }> | null;
+  totalprice?: number;
+  currency?: string;
+  amountDiscounted?: number;
+  status?: "cancelled" | "delivered" | "paid" | "pending" | "shipped";
+  orderDate?: string;
+}>;
+
 // Source: ./src/sanity/lib/products/get-all-categories.ts
 // Variable: ALL_CATEGORIES_QUERY
 // Query: *[_type == "category"] | order(name asc)
@@ -359,7 +445,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
 
 // Source: ./src/sanity/lib/products/get-product-by-category.ts
 // Variable: PRODUCT_BY_CATEGORY_QUERY
-// Query: *[        _type == "product" && references(            _type == "category" && slug.current == $categorySlug._id            )    ] | order(name asc)
+// Query: *[        _type == "product" && references(            *[_type == "category" && slug.current == $categorySlug]._id            )    ] | order(name asc)
 export type PRODUCT_BY_CATEGORY_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -568,9 +654,10 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n        *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n            ..., // spread operator i'e include all fields from the document\n            products[]{\n                ...,\n                product->{\n                ...  // This means \"include ALL fields from the product document\"\n                }\n            }\n        }\n        ": MY_ORDERS_QUERYResult;
     "\n        *[_type == \"category\"] | order(name asc)\n        ": ALL_CATEGORIES_QUERYResult;
     "\n        *[\n            _type == \"product\"\n        ] | order(name asc)\n        ": ALL_PRODUCTS_QUERYResult;
-    "\n    *[\n        _type == \"product\" && references(\n            _type == \"category\" && slug.current == $categorySlug._id\n            )\n    ] | order(name asc)\n        ": PRODUCT_BY_CATEGORY_QUERYResult;
+    "\n    *[\n        _type == \"product\" && references(\n            *[_type == \"category\" && slug.current == $categorySlug]._id\n            )\n    ] | order(name asc)\n        ": PRODUCT_BY_CATEGORY_QUERYResult;
     "\n        *[\n            _type == \"product\" && slug.current == $slug\n        ] | order(name asc)[0]\n        ": PRODUCT_BY_ID_QUERYResult;
     "\n        *[\n                _type == \"product\" &&   \n                name match $searchParam\n        ] | order(name asc)\n        ": PRODUCT_SEARCH_QUERYResult;
     "\n    *[\n        _type == \"sales\" &&\n        isActive == true &&\n        couponCode == $couponCode\n        ] | order( validFrom desc)[0]\n        ": ACTIVE_SALE_BY_COUPON_QUERYResult;

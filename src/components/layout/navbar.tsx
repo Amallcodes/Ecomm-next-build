@@ -28,12 +28,12 @@ const Navbar = () => {
 
   return (
     <nav
-      className="flex justify-between items-center py-2 px-4 bg-neutral 
+      className="flex gap-1 justify-between items-center py-2 px-4 bg-neutral 
     lg:px-20"
     >
       <div className="">
         <Link href="/" className="text-[1.5rem] text-primary logo lg:text-[2.2rem]">
-          BabyStore
+          Babys
         </Link>
       </div>
 

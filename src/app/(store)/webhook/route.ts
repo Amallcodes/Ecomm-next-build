@@ -1,9 +1,12 @@
 import stripe from "@/lib/stripe";
+import { randomUUID } from "crypto";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { MetaData } from "../../../../actions/create-checkout-session";
 import { backendClient } from "@/sanity/lib/backend-client";
+
+// stripe listen --forward-to localhost:{{PORT}}/webhook
 
 export async function POST(req: NextRequest) {
     const body = await req.text();
@@ -76,7 +79,7 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
     )
 
     const sanityProducts = lineItemsWithProduct.data.map((item) => ({
-        _key: crypto.randomUUID(),
+        _key: randomUUID(),
         product: {
             _type: "reference",
             _ref: (item.price?.product as Stripe.Product).metadata?.id
@@ -84,7 +87,7 @@ async function createOrderInSanity(session: Stripe.Checkout.Session) {
         quantity: item.quantity || 0
     }))
 
-    const order  = await backendClient.create({
+    await backendClient.create({
         _type: "order",
         orderNumber,
         // align to schema field names

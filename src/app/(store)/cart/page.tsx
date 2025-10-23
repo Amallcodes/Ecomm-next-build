@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createCheckoutSession, MetaData } from "../../../../actions/create-checkout-session";
+import { generateUUID } from "@/lib/utils";
 
 const CartPage = () => {
     const groupedItems = useBasketStore(state => state.getGroupedItems());
@@ -44,7 +45,7 @@ const CartPage = () => {
 
         try {
             const metaData: MetaData = {
-                orderNumber: crypto.randomUUID(),
+                orderNumber: generateUUID(),
                 customerName: user?.fullName ?? "Unknown",
                 customerEmail: user?.emailAddresses[0].emailAddress ?? "Unknown",
                 clerkUserId: user?.id
